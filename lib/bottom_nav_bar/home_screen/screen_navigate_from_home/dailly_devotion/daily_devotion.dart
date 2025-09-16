@@ -1,0 +1,264 @@
+import 'package:flutter/material.dart';
+import 'package:linear_progress_bar/linear_progress_bar.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:svg_flutter/svg.dart';
+
+class DailyDevotion extends StatefulWidget {
+  const DailyDevotion({super.key});
+
+  @override
+  State<DailyDevotion> createState() => _DailyDevotionState();
+}
+
+class _DailyDevotionState extends State<DailyDevotion> {
+  int isSpeakOrRead = 1;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        padding: EdgeInsets.only(
+            top: MediaQuery.of(context).padding.top, left: 15, right: 15),
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage("assets/home_navigation/Daily Devotional.png"))),
+        child: Stack(
+          clipBehavior: Clip.none,
+
+          children: [
+         ListView(
+           padding: EdgeInsets.zero,
+              children: [
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: CircleAvatar(
+                        radius: 20,
+                        backgroundColor: Color(0xf984a413b),
+                        child: Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    CircleAvatar(
+                      radius: 20,
+                      backgroundColor: Color(0xf984a413b),
+                      child: Icon(
+                        Icons.close,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Your progress',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontFamily: 'Manrope',
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Text(
+                      '35%',
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontFamily: 'Manrope',
+                        fontWeight: FontWeight.w600,
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                LinearProgressBar(
+                  maxSteps: 100,
+                  progressType: LinearProgressBar.progressTypeLinear,
+                  // Use Linear progress
+                  currentStep: 35,
+                  progressColor: Color(0xFF00A251),
+                  backgroundColor: Color(0x51737373),
+                  borderRadius: BorderRadius.circular(10), //  NEW
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                Text(
+                  'Daily Devotional',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 32,
+                    fontFamily: 'Quincy CF',
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: -0.32,
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Text(
+                  'Reflecting on Matthew 6:21, "For where your treasure is, there your heart will be also," invites you to examine what you truly value in life. Consider what occupies your thoughts and where you invest most of your time and energy. Is it material wealth, success, relationships, or personal passions?\n\nThis verse challenges you to align your priorities with God\'s kingdom. Treasure isn\'t just about money; it includes anything you cherish deeply. When your heart prioritizes love, kindness, and generosity— embodiments of God\'s character-you cultivate a treasure that lasts.\n\nIn your daily life, identify activities and relationships that nourish your soul and bring you closer to God. Ask yourself if your actions reflect the values you hold By aligning your heart with divine treasures.\n\nThis verse challenges you to align your priorities with God\'s kingdom. Treasure isn\'t just about money; it includes anything you cherish deeply. When your heart prioritizes love, kindness, and generosity— embodiments of God\'s character-you cultivate a treasure that lasts.',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontFamily: 'Manrope',
+                    fontWeight: FontWeight.w600,
+                    height: 1.50,
+                  ),
+                ),
+                SizedBox(
+                  height: 100,
+                ),
+              ],
+            ),
+            Positioned(
+              bottom: 10,left: 0,right: 0,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Spacer(),
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: ShapeDecoration(
+                      color: Color(0xffD8D8D8),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(120),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      spacing: 5,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isSpeakOrRead = 0;
+                            });
+                          },
+                          child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 6),
+                              decoration: ShapeDecoration(
+                                color: isSpeakOrRead == 0
+                                    ? Color(0xFF664F42)
+                                    : Colors.transparent,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(120),
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                spacing: 4,
+                                children: [
+                                  SvgPicture.asset(
+                                      color: isSpeakOrRead == 0
+                                          ? Colors.white
+                                          : Color(0xff664F42),
+                                      "assets/home_navigation/speaker.svg"),
+                                  isSpeakOrRead == 0
+                                      ? Text(
+                                    'Speak',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontFamily: 'Manrope',
+                                      fontWeight: FontWeight.w700,
+                                      letterSpacing: -0.48,
+                                    ),
+                                  )
+                                      : SizedBox()
+                                ],
+                              )),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isSpeakOrRead = 1;
+                            });
+                          },
+                          child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 6),
+                              decoration: ShapeDecoration(
+                                color: isSpeakOrRead == 1
+                                    ? Color(0xFF664F42)
+                                    : Colors.transparent,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(120),
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                spacing: 4,
+                                children: [
+                                  SvgPicture.asset(
+                                      color: isSpeakOrRead == 1
+                                          ? Colors.white
+                                          : Color(0xff664F42),
+                                      "assets/home_navigation/book.svg"),
+                                  isSpeakOrRead == 1
+                                      ? Text(
+                                    'Read',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontFamily: 'Manrope',
+                                      fontWeight: FontWeight.w700,
+                                      letterSpacing: -0.48,
+                                    ),
+                                  )
+                                      : SizedBox()
+                                ],
+                              )),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Spacer(),
+                  CircleAvatar(
+                    radius: 25,
+                    backgroundColor: Color(0xf40000000),
+                    child: Icon(
+                      Icons.arrow_forward,
+                      color: Colors.white,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
